@@ -37,7 +37,7 @@ def chance_llenar_album(cant_compradas_reales, cant_figus_max):
 
     chanceLlenarAlbum=(contadorFigusMax/len(cant_compradas_reales))
 
-    return chanceLlenarAlbum
+    return chance_llenar_al
 
 def chance_llenar_album_multiple(figus_Total, cant_figus_max, n_albumes):
     #chance de completar x cantidad de albumes con un tamaño x y imponiendole una cant max de figus para comprar
@@ -50,4 +50,4 @@ def chance_llenar_album_multiple(figus_Total, cant_figus_max, n_albumes):
 
     chanceLlenarAlbum=(contadorFigusMax/len(cant_compradas_reales))
 
-    return chanceLlenarAlbum
+    return chance_llenar_album_multi
