@@ -92,3 +92,27 @@ def dinamica(n, a, p, f):
         i = i + 1
     return sum(cant_arboles_año)/a
         
+#9 item a (el de sobrevivientes)
+def arboles_sobrevivientes(f, a, n):
+    promedios = []
+    p = 0
+    while p <= 100:
+        promedio = dinamica(n, a, p, f)
+        promedios.append(promedio)
+        p = p + 1
+    return promedios 
+
+#9 item b (el de optimo)
+def p_optimo(f, a, n):
+    promedios = arboles_sobrevivientes(f, a, n)
+    max_sobrevivientes = promedios[0]
+    p_opt = 0
+    
+    i = 1 
+    while i < len(promedios):
+        if promedios[i] > max_sobrevivientes:
+            max_sobrevivientes = promedios[i]
+            p_opt = i
+        i = i + 1
+    return p_opt
+        
