@@ -422,9 +422,10 @@ def probabilidad_simulacion_mod(simulaciones): # Devuelve un array con las proba
     total_jugador[:, :] = total_crupier
 
     return total_jugador
-
+"""
 sim = simulacion_mod_multiple(100, 2)
 sim2 = probabilidad_simulacion_mod(sim)
+"""
 
 def grafico_probabilidad_simulacion_mod(simulacion):     
     print(simulacion)
