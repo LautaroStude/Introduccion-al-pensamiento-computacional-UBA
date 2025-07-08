@@ -208,58 +208,20 @@ graficar_prob_mazos(mazos, prob)
 """
 
 #pregunta 3 clase 2
-def jugador_serial(dinero_inicial, apuesta_maxima, max_partidas):
 
+def un_jugador(dinero_inicial, apuesta, max_partidas, tope):
     dinero = dinero_inicial
     evo_dinero = [dinero]
     #lista en donde se guarda cada dinero que tenia disponible
     partidas_jugadas = 0
     
-    while dinero >= apuesta_maxima and partidas_jugadas < max_partidas:
-        resultado = quien_gano(21, 2)
+    while dinero >= apuesta and partidas_jugadas < max_partidas:
+        resultado = quien_gano(tope, 2)
         
         if resultado == 1:  
-            dinero += apuesta_maxima
+            dinero += apuesta
         elif resultado == -1: 
-            dinero -= apuesta_maxima
-        
-        evo_dinero.append(dinero)
-        partidas_jugadas += 1
-    
-    return evo_dinero
-
-def jugador_moderado(dinero_inicial, apuesta_promedio, max_partidas):
-
-    dinero = dinero_inicial
-    evo_dinero = [dinero]
-    partidas_jugadas = 0
-    
-    while dinero >= apuesta_promedio and partidas_jugadas < max_partidas:
-        resultado = quien_gano(18, 2)
-        
-        if resultado == 1:  
-            dinero += apuesta_promedio
-        elif resultado == -1: 
-            dinero -= apuesta_promedio
-        
-        evo_dinero.append(dinero)
-        partidas_jugadas += 1
-    
-    return evo_dinero
-
-def jugador_reservado(dinero_inicial, apuesta_minima, max_partidas):
-
-    dinero = dinero_inicial
-    evo_dinero = [dinero]
-    partidas_jugadas = 0
-    
-    while dinero >= apuesta_minima and partidas_jugadas < max_partidas:
-        resultado = quien_gano(16, 2)
-        
-        if resultado == 1: 
-            dinero += apuesta_minima
-        elif resultado == -1: 
-            dinero -= apuesta_minima
+            dinero -= apuesta
         
         evo_dinero.append(dinero)
         partidas_jugadas += 1
@@ -274,16 +236,32 @@ def simular_perfiles(simulaciones):
     resultados_reservado = []
     
     for i in range(simulaciones):
-        serial = jugador_serial(200, 15, 100)
-        moderado = jugador_moderado(200, 10, 100)
-        reservado = jugador_reservado(200, 5, 100)
+        serial = un_jugador(200, 15, 100, 21)
+        moderado = un_jugador(200, 10, 100, 18)
+        reservado = un_jugador(200, 5, 100, 16)
         
         resultados_serial.append(serial)
         resultados_moderado.append(moderado)
         resultados_reservado.append(reservado)
     
     return resultados_serial, resultados_moderado, resultados_reservado
-
+    
+def calc_promedio(resultado_un_jugador, num_partidas):
+    promedio = []
+    
+    for partida in range(num_partidas):
+        sum = 0
+        contador = 0
+        for simulacion in resultado_un_jugador:
+            if partida < len(simulacion):
+                sum = sum + simulacion[partida]
+                contador = contador + 1
+        if contador > 0:
+            promedio.append(sum / contador)
+        else:
+            promedio.append(0)
+    return promedio
+    
 def graficar_perfiles(resultados_serial, resultados_moderado, resultados_reservado, num_partidas):
     #hace un promedio y grafica para cada perfil, para que no tome solo una partida
     prom_serial = []
